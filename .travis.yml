@@ -1,9 +1,11 @@
 sudo: required
 
+lanugage: r
+
 services:
   - docker
 
-before_install:
+script:
 - docker build -f Dockerfile -t fedora-latex .
 
 deploy:
