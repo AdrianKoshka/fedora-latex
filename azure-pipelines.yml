@@ -11,7 +11,25 @@ pool:
 
 variables:
   imageName: 'fedora-latex:$(build.buildId)'
+  repositoryname: 'fedora-latex'
 
 steps:
 - script: docker build -f Dockerfile -t $(imageName) .
   displayName: 'docker build'
+
+
+- task: Docker@1
+  displayName: 'Build an image'
+  inputs:
+    imageName: 'contoso.azurecr.io/repositoryname:$(Build.BuildId)'
+- task: Docker@1
+  displayName: Login
+  inputs:
+    containerregistrytype: 'Container Registry'
+    dockerRegistryEndpoint: quay.io
+    command: login
+- task: Docker@1
+  displayName: 'Push an image'
+  inputs:
+    command: 'push an image'
+    imageName: 'quay.io/adrianlucrececeleste/$repositoryname:$(Build.BuildId)'
